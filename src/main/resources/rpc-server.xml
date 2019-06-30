@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<servers>
+    <server id="1" name="userInfoServer" port="8080" ip="127.0.0.1" rpc="9090"/>
+    <server id="2" name="orderInfoServer" port="8081" ip="127.0.0.1" rpc="9091"/>
+    <server id="3" name="orderInfoServer" port="8082" ip="127.0.0.1" rpc="9092"/>
+</servers>

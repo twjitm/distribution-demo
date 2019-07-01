@@ -26,23 +26,23 @@ public class Distribution {
             System.err.println("Usage: Driver <inputfile>");
             return;
         }
-        final File file = new File (args[0]);
-        FileReader fileReader=new FileReader(file);
-        char[] b=new char[1024];
-
+        final File file = new File(args[0]);
+        if (!file.isFile()) {
+            System.out.println("配置文件没有找到，请输入正确的配置文件");
+            return;
+        }
         InputStream is = new FileInputStream(file);
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is));
-        String serverName = null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        String serverName;
         while (true) {
             serverName = reader.readLine();
             if (serverName != null) {
                 startUserInfoServer(serverName);
+                System.out.println("server_name=" + serverName);
             } else
                 break;
         }
         is.close();
-        fileReader.close();
     }
 
 
@@ -88,7 +88,7 @@ public class Distribution {
         }
     }
 
-    public static void startRpcServer(int port,String ip){
+    public static void startRpcServer(int port, String ip) {
 
     }
 
@@ -110,7 +110,7 @@ public class Distribution {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc;
-        Map<String, List<ServerNode>> nodeMap = new HashMap<String, List<ServerNode>>();
+        Map<String, List<ServerNode>> nodeMap = new HashMap<>();
         doc = builder.parse(new File("src/main/resources/rpc-server.xml"));
         NodeList nodeList = doc.getElementsByTagName("server");
         //对所有的sever进行遍历

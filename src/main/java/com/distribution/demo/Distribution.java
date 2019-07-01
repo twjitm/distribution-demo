@@ -111,7 +111,11 @@ public class Distribution {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc;
         Map<String, List<ServerNode>> nodeMap = new HashMap<>();
-        doc = builder.parse(new File("src/main/resources/rpc-server.xml"));
+       // String fileName = Distribution.class.getClassLoader().getResource("rpc-server.xml").getPath();//获取文件路径
+       // getResourceAsStream
+
+        InputStream inputStream = Distribution.class.getResourceAsStream("/rpc-server.xml");
+        doc = builder.parse(inputStream);
         NodeList nodeList = doc.getElementsByTagName("server");
         //对所有的sever进行遍历
         for (int i = 0; i < nodeList.getLength(); i++) {

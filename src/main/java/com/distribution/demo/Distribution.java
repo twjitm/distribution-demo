@@ -55,6 +55,10 @@ public class Distribution {
     public static void startUserInfoServer(String serverName) {
         try {
             List<ServerNode> serverNodes = getServerNode(serverName);
+            if (serverNodes == null) {
+                System.out.println("输入种子服务器变异名称=" + serverName + "将不会进行启动分布式服务器");
+                return;
+            }
             serverNodes.forEach(node -> new Thread(new Server(node)).start());
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,10 +83,11 @@ public class Distribution {
             try {
                 String result = process(node.getName());
                 System.out.println(result);
-                serverSocket = new ServerSocket(node.getPort(), 521, ((InetSocketAddress) socketAddress).getAddress());
-                serverSocket.accept();
+//                serverSocket = new ServerSocket(node.getPort(), 521, ((InetSocketAddress) socketAddress).getAddress());
+//                serverSocket.accept();
 
-            } catch (IOException e) {
+                System.out.println("server start done,ip+" + node.getIp() + "port=" + node.getPort());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
